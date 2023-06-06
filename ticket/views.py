@@ -31,7 +31,7 @@ def create_ticket(request):
             subject = f'New ticket has been created: {ticket.name}'
             message = f'Ticket {ticket.name} has been created.\n\nDescription:\n{ticket.description}'
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [admin_email])
-            return redirect('ticket:create-ticket')
+            return redirect('ticket:home')
     else:
         form = TicketForm()
     return render(request, 'create_ticket.html', {'form': form})
