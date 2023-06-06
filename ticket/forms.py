@@ -44,6 +44,5 @@ class TicketForm(forms.ModelForm):
         return images
     class Meta:
         model = Ticket
-        fields = ['name', 'email','description', 'priority', 'image','category']
-
+        fields = ['name', 'email','description', 'image','category']
 
