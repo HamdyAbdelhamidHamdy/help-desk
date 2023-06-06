@@ -7,30 +7,31 @@
 
     <!--Contact form-->
     <div class="container p-5">
-      <h1>Contact</h1>
+      <h1>Ticket</h1>
       <h4>Contact us directly if you have any questions</h4>
       <p>
-        Please write your name, email address and a message below if you have any questions.
+        Please write your name, email address and a description below if you have any questions.
         One of our staff members will be happy to contact you directly and answer your questions as soon as possible.
       </p>
-      <form method="post">
+      <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="row">
             <div class="col-lg-6 col-md-12">
                 {{form.name|as_crispy_field}}
-                {{form.priority|as_crispy_field}}
-                {{form.status|as_crispy_field}}
+<!--                {{form.priority|as_crispy_field}}-->
                 {{form.category|as_crispy_field}}
-                 {{form.image|as_crispy_field}}
+                {{form.email|as_crispy_field}}
+
 
             </div>
             <div class="col-lg-6 col-md-12">
               {{form.description|as_crispy_field}}
+                    {{form.image|as_crispy_field}}
             </div>
           </div>
           <div class="row">
                 <div class="col-lg-6 col-md-12">
-                    <button type="submit">Submit</button>
+                    <button type="submit" class="btn form-control border border-dark">Submit</button>
                 </div>
           </div>
 

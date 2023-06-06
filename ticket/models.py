@@ -12,13 +12,13 @@ class Ticket(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    status = models.CharField(choices=(
-        ('1', 'Open'),
-        ('2', 'Reopened'),
-        ('3', 'Resolved'),
-        ('4', 'Closed'),
-        ('5', 'Duplicate'),
-    ), max_length=1,default='1')
+    # status = models.CharField(choices=(
+    #     ('1', 'Open'),
+    #     ('2', 'Reopened'),
+    #     ('3', 'Resolved'),
+    #     ('4', 'Closed'),
+    #     ('5', 'Duplicate'),
+    # ), max_length=1,default='1')
     priority = models.CharField(choices=(
         ('critical', 'Critical'),
         ('high', 'High'),
@@ -26,7 +26,8 @@ class Ticket(models.Model):
         ('low', 'Low'),
         ('verylow', 'Very Low'),
     ), max_length=20,default='low')
-    # image = models.ManyToManyField(UploadMedia, null=True, blank=False, related_name='ticket_images')
+    image = models.ManyToManyField(UploadMedia, null=True, blank=False, related_name='ticket_images')
+    email = models.EmailField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category', null=True, blank=False)
 
     def __str__(self):

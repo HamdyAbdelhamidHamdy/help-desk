@@ -17,19 +17,24 @@ def home(request):
 def create_ticket(request):
     if request.method == 'POST':
         form = TicketForm(data=request.POST, files=request.FILES,)
-        print(request.POST['name'])
-        print(request.POST['description'])
+
+
         if form.is_valid():
             images = request.FILES.getlist('image')
+            print(images)
+
+            ticket = form.save(commit=False)
+            ticket.save()
             for image in images:
-                UploadMedia.objects.create(file=image)
-            ticket = form.save()
+                s=UploadMedia.objects.create(file=image)
+                ticket.image.add(s)
+            ticket.save()
             admin_email = settings.ADMINS[0][1]
             print(admin_email)
             subject = f'New ticket has been created: {ticket.name}'
             message = f'Ticket {ticket.name} has been created.\n\nDescription:\n{ticket.description}'
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [admin_email])
-            return redirect('ticket:home')
+            return redirect('ticket:create-ticket')
     else:
         form = TicketForm()
     return render(request, 'create_ticket.html', {'form': form})
