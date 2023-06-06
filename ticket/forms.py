@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 MAX_SIZE = 10 * 1024 * 1024
-
+accepted_file_types = ['image/jpeg', 'image/png', 'image/gif','image/jpg']
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
 
@@ -30,12 +30,15 @@ class FileFieldForm(forms.Form):
 
 
 class TicketForm(forms.ModelForm):
+
     image = MultipleFileField(required=False)
 
     def clean_image(self):
         images = self.cleaned_data.get('image')
         if images:
             for img in images:
+                if img.content_type not in accepted_file_types:
+                    raise ValidationError(_('Please upload a valid image.'))
                 if img.size > MAX_SIZE:
                     raise ValidationError(
                         _('The maximum file size that can be uploaded is %(size)s MB.'),
