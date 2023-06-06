@@ -4,8 +4,9 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
+
+from upload_media.models import UploadMedia
 from .forms import TicketForm
-from .models import Ticket
 from django.conf import settings
 
 
@@ -16,10 +17,12 @@ def home(request):
 def create_ticket(request):
     if request.method == 'POST':
         form = TicketForm(data=request.POST, files=request.FILES,)
-        print( request.POST['name'])
-        print( request.POST['description'])
+        print(request.POST['name'])
+        print(request.POST['description'])
         if form.is_valid():
-
+            images = request.FILES.getlist('image')
+            for image in images:
+                UploadMedia.objects.create(file=image)
             ticket = form.save()
             admin_email = settings.ADMINS[0][1]
             print(admin_email)

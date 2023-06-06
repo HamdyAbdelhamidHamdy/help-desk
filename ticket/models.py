@@ -1,8 +1,14 @@
 from django.db import models
 
+# from UploadMedia.models import UploadMedia
+from category.models import Category
+from ticket.utils import unique_slugify
+from upload_media.models import UploadMedia
+
 
 class Ticket(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -20,13 +26,14 @@ class Ticket(models.Model):
         ('low', 'Low'),
         ('verylow', 'Very Low'),
     ), max_length=20,default='low')
-    image = models.ImageField(upload_to='tickets', null=True, blank=False)
+    # image = models.ManyToManyField(UploadMedia, null=True, blank=False, related_name='ticket_images')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category', null=True, blank=False)
 
     def __str__(self):
         return format(self.name)
 
 
-class Media(models.Model):
-    file = models.FileField(upload_to='media/')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    def save(self, **kwargs):
+        slug_str = "%s" % (self.name)
+        unique_slugify(self, slug_str)
+        super(Ticket, self).save()
