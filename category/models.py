@@ -14,3 +14,7 @@ class Category(models.Model):
         slug_str = "%s" % (self.title,)
         unique_slugify(self, slug_str)
         super(Category, self).save(**kwargs)
+
+
+    def __str__(self):
+        return format(self.title)

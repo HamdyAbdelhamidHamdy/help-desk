@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Home</h1>
-</body>
-</html>
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{%load static%}
+
+{% block content %}
+<table class="table">
+  <thead  class="thead-dark">
+    <tr>
+      <th scope="col">name</th>
+      <th scope="col">created_at</th>
+      <th scope="col">priority</th>
+      <th scope="col">category</th>
+    </tr>
+  </thead>
+  <tbody>
+
+{% for ticket in tickets %}
+    <tr>
+      <th scope="row">{{ticket.name}}</th>
+      <td>{{ticket.created_at}}</td>
+      <td>{{ticket.priority}}</td>
+      <td>@{{ticket.category}}</td>
+    </tr>
+
+{% endfor %}
+  </tbody>
+</table>
+{% endblock %}

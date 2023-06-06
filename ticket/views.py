@@ -1,17 +1,16 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
-
 from upload_media.models import UploadMedia
 from .forms import TicketForm
 from django.conf import settings
 
+from .models import Ticket
+
 
 def home(request):
-    return render(request, 'home.html', {})
+    tickets = Ticket.objects.all().order_by('-created_at')[:10]
+    return render(request, 'home.html', {'tickets':tickets})
 
 @login_required
 def create_ticket(request):
@@ -21,8 +20,6 @@ def create_ticket(request):
 
         if form.is_valid():
             images = request.FILES.getlist('image')
-            print(images)
-
             ticket = form.save(commit=False)
             ticket.save()
             for image in images:
