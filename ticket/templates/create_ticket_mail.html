@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Email Template</title>
+	<style>
+		img{
+		width:30%;
+		padding:15px;
+		}
+	</style>
+</head>
+<body>
+	<div style="font-family: Arial, sans-serif; background-color: #f5f5f5; color: #333333; margin: 0; padding: 0;">
+		<div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+			<h1 style="color: #333333; font-size: 24px; margin-top: 0;">New Ticket from User</h1>
+			<p style="margin-bottom: 10px;"><strong>User Name:</strong> {{ticket.name}}</p>
+			<p style="margin-bottom: 10px;"><strong>Email:</strong> {{ticket.email}}</p>
+			<p style="margin-bottom: 10px;"><strong>Description:</strong></p>
+			<div style="padding: 10px; background-color: #f0f0f0; border-radius: 5px;">
+				<p>{{ticket.description}}</p>
+			</div>
+
+			<div class="row">
+  {% for im in ticket.image.all %}
+      <img  src='{{im.file.url}}' >
+  {% endfor %}
+</div>
+
+			<div style="margin-top: 20px; text-align: center; font-size: 12px; color: #888888;">
+				This email was sent from your website. Please do not reply to this email.
+			</div>
+		</div>
+	</div>
+</body>
+</html>

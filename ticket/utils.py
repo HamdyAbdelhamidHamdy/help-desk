@@ -1,4 +1,7 @@
 import re
+
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
 from django.template.defaultfilters import slugify
 
 
@@ -70,3 +73,18 @@ def _slug_strip(value, separator='-'):
             re_sep = re.escape(separator)
         value = re.sub(r'^%s+|%s+$' % (re_sep, re_sep), '', value)
     return value
+
+
+
+def send_email(subject, email, body, from_email=settings.EMAIL_HOST_USER):
+    msg = EmailMultiAlternatives()
+    msg.from_email = from_email
+    msg.subject = subject.strip()
+    msg.body = body
+    msg.attach_alternative(body, "text/html")
+    if isinstance(email, list):
+        msg.to = email
+    else:
+        msg.to = [email]
+    print('kjjjjjjjjjjjjj')
+    msg.send()

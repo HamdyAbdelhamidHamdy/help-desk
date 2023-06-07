@@ -7,6 +7,8 @@ from django.utils.translation import gettext_lazy as _
 
 MAX_SIZE = 10 * 1024 * 1024
 accepted_file_types = ['image/jpeg', 'image/png', 'image/gif','image/jpg']
+
+
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
 
