@@ -76,7 +76,7 @@ def _slug_strip(value, separator='-'):
 
 
 
-def send_email(subject, email, body, from_email=settings.EMAIL_HOST_USER):
+def send_email(ticket,subject, email, body, from_email=settings.EMAIL_HOST_USER):
     msg = EmailMultiAlternatives()
     msg.from_email = from_email
     msg.subject = subject.strip()
@@ -87,4 +87,11 @@ def send_email(subject, email, body, from_email=settings.EMAIL_HOST_USER):
     else:
         msg.to = [email]
     print('kjjjjjjjjjjjjj')
+    for product in ticket.image.all():
+        if product.file:
+            msg.attach_file(product.file.path)
     msg.send()
+
+
+
+
