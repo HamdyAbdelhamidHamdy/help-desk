@@ -1,15 +1,9 @@
-from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
 
+from django.shortcuts import render
+from django.template.loader import render_to_string
 from upload_media.models import UploadMedia
 from user.models import UserMail
 from .forms import TicketForm
-from django.conf import settings
-
 from .models import Ticket
 from .utils import send_email
 
@@ -34,7 +28,15 @@ def create_ticket(request):
             mail_list = [user_email.mail for user_email in user_emails]
             subject = f'New ticket has been created: {ticket.name}'
             message = render_to_string('create_ticket_mail.html', {'ticket':ticket})
-            send_email.delay(ticket, subject=subject, body=message, email=mail_list,)
+            arr=[]
+            for product in ticket.image.all():
+                if product.file:
+                    arr.append(product.file.path)
+            ticket_data = {
+
+                "image": arr,
+            }
+            send_email(ticket_data, subject=subject, body=message, email=mail_list,)
             return render(request, 'confirm_create_ticket.html',{})
     else:
         form = TicketForm()

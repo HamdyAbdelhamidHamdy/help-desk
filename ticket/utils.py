@@ -86,9 +86,8 @@ def send_email(ticket,subject, email, body, from_email=settings.EMAIL_HOST_USER)
         msg.to = email
     else:
         msg.to = [email]
-    for product in ticket.image.all():
-        if product.file:
-            msg.attach_file(product.file.path)
+    for product in ticket['image']:
+            msg.attach_file(product)
     msg.send()
 
 
