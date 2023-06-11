@@ -11,7 +11,7 @@
   line-height: 35px !important;
   font-weight: bold;
   padding-left: 15px;
-  font-family: "Lucida Console", "Courier New", monospace;
+  /* font-family: "Lucida Console", "Courier New", monospace; */
 }
 .form-card {
   padding: 10px;
@@ -22,5 +22,5 @@
   background-color: #002968 !important;
   color: rgb(0, 0, 0);
   /* text-shadow: 1px 1px 4px #000000; */
-  font-family: "Lucida Console", "Courier New", monospace;
+  /* font-family: "Lucida Console", "Courier New", monospace; */
 }
