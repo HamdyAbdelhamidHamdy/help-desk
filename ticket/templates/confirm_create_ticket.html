@@ -3,14 +3,11 @@
 {%load static%}
 
 {% block content %}
-<div class="container-fluid" style="height: 100vh; display: flex; justify-content: center; align-items: center;">
-    <h1 class="display-1" id="animate-text" style="visibility: hidden;">ticket created successfully</h1>
+
+  <!-- Animation -->
+  <div class="container-fluid" style="height: 100vh; display: flex; justify-content: center; align-items: center;">
+    <h4 class="display-1" id="animate-text">ticket created successfully!</h4>
   </div>
 
-  <!-- Script -->
-  <script>
-    $(document).ready(function() {
-      $('#animate-text').css('visibility', 'visible').hide().fadeIn(1000);
-    });
-  </script>
+
 {% endblock %}
