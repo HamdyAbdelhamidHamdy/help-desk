@@ -47,6 +47,7 @@ class TicketForm(forms.ModelForm):
                         params={'size': MAX_SIZE / (1024 * 1024)},
                     )
         return images
+
     def clean_image(self):
         phone_number = self.cleaned_data.get('phone_number')
         if phone_number and not phone_number.isnumeric():

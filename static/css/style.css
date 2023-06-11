@@ -1,7 +1,26 @@
-.create-ticket-button{
-background-color: #002968 !important;
-color:#fff !important;
+.create-ticket-button {
+  color: #fff !important;
+  text-shadow: 2px 2px 4px #000000;
 }
-.footer-bottom{
-background-color: #002968 !important;
+
+.definition-of-ticket {
+  padding: 10px;
+}
+.form-ticket {
+  color: #fff;
+  line-height: 35px !important;
+  font-weight: bold;
+  padding-left: 15px;
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+.form-card {
+  padding: 10px;
+}
+
+.content {
+  margin-top: 20px;
+  background-color: #002968 !important;
+  color: white;
+  text-shadow: 1px 1px 4px #000000;
+  font-family: "Lucida Console", "Courier New", monospace;
 }
