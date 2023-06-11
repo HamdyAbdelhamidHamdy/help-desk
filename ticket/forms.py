@@ -51,6 +51,7 @@ class TicketForm(forms.ModelForm):
         phone_number = self.cleaned_data.get('phone_number')
         if phone_number and not phone_number.isnumeric():
             raise ValidationError(_('Please make sure phone number is valid.'))
+
     class Meta:
         model = Ticket
         fields = ['name', 'email','description','phone_number', 'image','category']
