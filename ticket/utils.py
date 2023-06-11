@@ -1,5 +1,5 @@
 import re
-
+from celery import shared_task
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.defaultfilters import slugify
@@ -75,7 +75,7 @@ def _slug_strip(value, separator='-'):
     return value
 
 
-
+@shared_task
 def send_email(ticket,subject, email, body, from_email=settings.EMAIL_HOST_USER):
     msg = EmailMultiAlternatives()
     msg.from_email = from_email
@@ -86,7 +86,6 @@ def send_email(ticket,subject, email, body, from_email=settings.EMAIL_HOST_USER)
         msg.to = email
     else:
         msg.to = [email]
-    print('kjjjjjjjjjjjjj')
     for product in ticket.image.all():
         if product.file:
             msg.attach_file(product.file.path)
