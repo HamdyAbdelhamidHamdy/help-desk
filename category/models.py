@@ -18,3 +18,7 @@ class Category(models.Model):
 
     def __str__(self):
         return format(self.title)
+
+    class Meta:
+        verbose_name = 'category'
+        verbose_name_plural = 'Knowledge base categories'
